@@ -29,7 +29,6 @@ export default function Product(props) {
       addedQuantity
     };
 
-    console.log('Removed from cart:', removedProduct);
     dispatch(addToStore(removedProduct));
     dispatch(removeFromCart(removedProduct));
   };
