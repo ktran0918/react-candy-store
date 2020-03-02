@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { receiveProducts } from "./redux/actions";
 import products from './data/products';
 import Store from './components/Store';
+import Cart from './components/Cart';
 
 const StoreTitle = styled.h1`
   text-align: center;
@@ -17,6 +18,7 @@ function App() {
     <div>
       <StoreTitle>Penny Candy Store</StoreTitle>
       <Store />
+      <Cart />
     </div>
   );
 }

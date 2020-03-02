@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from "@emotion/styled";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import { subtractFromStore, addToCart } from "../redux/actions";
 
 const ProductContent = styled.section`
   padding: 10px 20px;
@@ -25,13 +27,35 @@ const AddToCartForm = styled.form`
 `;
 
 export default function Product(props) {
+  const dispatch = useDispatch();
   const [num, setNum] = useState(0);
-  const { photoUrl, name, price, inStock } = props.data;
+  const { id, photoUrl, name, price, inStock } = props.product;
+
+  const addToCartOnChange = event => {
+    setNum(Number(event.target.value));
+  };
 
   const addToCartFormOnSubmit = event => {
     event.preventDefault();
-    console.log(`Added ${num} ${name}(s) to cart`);
-    setNum(0);
+    if (num === 0) {
+      alert('Please select a quantity greater than 0');
+
+    } else if (num > inStock) {
+      alert('Quantity added to cart cannot exceed quantity in stock!');
+
+    } else {
+      const addedProduct = {
+        id,
+        name,
+        price,
+        addedQuantity: num,
+        totalCost: num * price
+      };
+
+      dispatch(subtractFromStore(addedProduct));
+      dispatch(addToCart(addedProduct));
+      setNum(0);
+    }
   };
 
   return (
@@ -41,15 +65,16 @@ export default function Product(props) {
       <ProductInfo>
         <h3>{name}</h3>
         <p><strong>Price</strong>: {price}</p>
-        <p><strong>Quantity</strong>: {inStock}</p>
+        <p><strong>In stock</strong>: {inStock ? inStock : 'out of stock'}</p>
 
         <AddToCartForm onSubmit={addToCartFormOnSubmit}>
           <input
             type="number"
+            min={num}
             value={num}
-            onChange={event => setNum(event.target.value)}
+            onChange={addToCartOnChange}
           />
-          <button>Add to cart</button>
+          <button disabled={!inStock}>Add to cart</button>
         </AddToCartForm>
       </ProductInfo>
     </ProductContent>

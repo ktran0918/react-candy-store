@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from '@emotion/styled';
 
 import { getProducts } from "../redux/selectors";
@@ -17,7 +17,7 @@ export default function Store() {
   return (
     <StoreContent>
       {products.map(product =>
-        <Product key={product.id} data={product} />
+        <Product key={product.id} product={product} />
       )}
     </StoreContent>
   );
