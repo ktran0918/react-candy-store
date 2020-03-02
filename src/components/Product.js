@@ -70,7 +70,7 @@ export default function Product(props) {
         <AddToCartForm onSubmit={addToCartFormOnSubmit}>
           <input
             type="number"
-            min={num}
+            min="0"
             value={num}
             onChange={addToCartOnChange}
           />
