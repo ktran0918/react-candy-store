@@ -10,7 +10,7 @@ import { checkoutCart } from "../redux/actions";
 const CartContent = styled.main`
   position: fixed;
   bottom: 0;
-  right: ${props => props.shown ? '0' : '-500px'};
+  right: ${props => props.shown ? '0' : '-50%'};
   height: 90%;
   width: 30%;
   margin: auto;
